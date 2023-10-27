@@ -18,27 +18,27 @@ public class Solution {
             return null;
         }
 
-        var node = new TreeNode(root.val);
-        return ReverseTree(node, root);
-    }
+        var stack = new Stack<TreeNode>();
+        stack.Push(root);
+        var node = new TreeNode(root.val); 
+        var result = node;
+        TreeNode tmp;
+        while(stack.Count > 0)
+        {
+            node = stack.Pop();
+            if (node == null)
+            {
+                continue;
+            }
 
-    private TreeNode ReverseTree(TreeNode node, TreeNode root)
-    {
-        if (root == null)
-        {
-            return node;
+            tmp = node.right;
+            node.right = node.left;
+            node.left = tmp;
+            
+            stack.Push(node.right);
+            stack.Push(node.left);
         }
-        if (root.right != null)
-        {
-            node.left = new TreeNode(root.right.val);
-            node.left = ReverseTree(node.left, root.right);
-        }
-        if (root.left != null)
-        {
-            node.right = new TreeNode(root.left.val);
-            node.right = ReverseTree(node.right, root.left);
-        }
-        
-        return node;
+
+        return root;
     }
 }
