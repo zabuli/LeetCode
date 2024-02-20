@@ -9,19 +9,12 @@ public class Solution {
             return nums[0];
         }
 
-        var k = 0;
+        var result = nums[0];
         for(var i = 1; i < nums.Length; i++)
         {
-            if (nums[i] == nums[k])
-            {
-                var tmp = nums[k + 1];
-                nums[k + 1] = nums[i];
-                nums[i] = tmp;
-                k += 2;
-                i = k;
-            }
+            result ^= nums[i];
         }
 
-        return nums[k];
+        return result;
     }
 }
