@@ -7,7 +7,6 @@ public class Solution {
 
         var zeros = new int[n + 1];
         var dict = new Dictionary<int, int>();
-        var set = new HashSet<int>();
         foreach(var x in trust)
         {
             zeros[x[0]]++;
@@ -17,17 +16,9 @@ public class Solution {
             }
 
             dict[x[1]]++;
-            if (!set.Contains(x[0]))
-            {
-                set.Add(x[0]);
-            }
-            if (!set.Contains(x[1]))
-            {
-                set.Add(x[1]);
-            }
         }
 
-        var result = dict.FirstOrDefault(x => x.Value == set.Count - 1);
+        var result = dict.FirstOrDefault(x => x.Value == n - 1);
         if (result.Equals(default(KeyValuePair<int,int>)))
         {
             return -1;
