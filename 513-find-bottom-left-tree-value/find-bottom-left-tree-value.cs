@@ -13,35 +13,23 @@
  */
 public class Solution {
     public int FindBottomLeftValue(TreeNode root) {
-        var result = 0;
-        return GetLeftDeepMostValue(root, ref result);
-    }
+        var node = new TreeNode(root.val);
+        var queue = new Queue<TreeNode>();
+        queue.Enqueue(root);
 
-    private int GetLeftDeepMostValue(TreeNode root, ref int depth)
-    {
-        if (root == null)
+        while(queue.Count > 0)
         {
-            return 0;
+            node = queue.Dequeue();
+            if (node.right != null)
+            {
+                queue.Enqueue(node.right);
+            }
+            if (node.left != null)
+            {
+                queue.Enqueue(node.left);
+            }
         }
 
-        if (root.left == null && root.right == null)
-        {
-            return root.val;
-        }
-        
-        depth++;
-
-        var leftDepth = depth; var rightDepth = depth;
-        var leftValue = GetLeftDeepMostValue(root.left, ref leftDepth);
-        var rightValue = GetLeftDeepMostValue(root.right, ref rightDepth);
-
-        if (root.left != null && leftDepth >= rightDepth)
-        {
-            depth = leftDepth;
-            return leftValue;
-        }
-
-        depth = rightDepth;
-        return rightValue;
+        return node.val;
     }
 }
