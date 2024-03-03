@@ -16,32 +16,44 @@ public class Solution {
             return null;
         }
 
-        var next = head;
-        var depth = 0;
-        while(next != null)
-        {
-            depth++;
-            next = next.next;
-        }
-
+        var depth = GetDepth(head);
         var position = depth - n;
+
         if (position == 0)
         {
             head = head.next;
             return head;
         }
 
-        next = head;
+        return GetListWithoutNth(head, position);
+    }
+
+    private static int GetDepth(ListNode node)
+    {
+        var depth = 0;
+
+        while(node != null)
+        {
+            depth++;
+            node = node.next;
+        }
+
+        return depth;
+    }
+
+    private static ListNode GetListWithoutNth(ListNode head, int position)
+    {
+        var node = head;
 
         while (position > 0)
         {
             if (position == 1)
             {
-                next.next = next.next.next;
+                node.next = node.next.next;
             }
             else
             {
-                 next = next.next;
+                node = node.next;
             }
            
             position--;
