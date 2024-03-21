@@ -12,32 +12,15 @@
 public class Solution {
     public ListNode ReverseList(ListNode head)
     {
-        if (head == null)
+        if (head == null || head.next == null)
         {
-            return null;
+            return head;
         }
 
-        var result = GetListNode(head, null);
-        return result;
-    }
+        var list = ReverseList(head.next);
+        head.next.next = head;
+        head.next = null;
 
-    private ListNode GetListNode(ListNode head, ListNode prev)
-    {
-        if (head == null)
-        {
-            return prev;
-        }
-
-        var tmp = head.next;
-        if (prev != null)
-        {
-            head.next = prev;
-        }
-        else
-        {
-            head.next = null;
-        }
-
-        return GetListNode(tmp, head);
+        return list;
     }
 }
