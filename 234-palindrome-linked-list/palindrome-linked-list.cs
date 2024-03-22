@@ -16,17 +16,17 @@ public class Solution {
             return true;
         }
 
-        var slow = head;//1
-        var fast = head.next;//2
+        var slow = head;
+        var fast = head.next;
         var stack = new Stack<ListNode>();
         stack.Push(slow);
 
         while (fast != null && fast.next != null)
         {
-            slow = slow.next;//2,3,4,5
+            slow = slow.next;
             stack.Push(slow);
 
-            fast = fast.next.next;//4,5,3,1
+            fast = fast.next.next;
         }
 
         if (fast == null)
