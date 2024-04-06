@@ -1,6 +1,6 @@
 public class Solution {
     public string MinRemoveToMakeValid(string s) {
-        var result = string.Empty;
+        var result = new StringBuilder();
         var stack = new Stack<char>();
         var rightCount = s.Count(c => c == ')');
     
@@ -28,9 +28,9 @@ public class Solution {
                 stack.Push(c);
             }
 
-            result += c;
+            result.Append(c);
         }
 
-        return result;
+        return result.ToString();
     }
 }
