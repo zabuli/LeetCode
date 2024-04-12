@@ -13,26 +13,15 @@
  */
 public class Solution {
     public IList<int> PostorderTraversal(TreeNode root) {
-        return PostOrder(root, new List<int>());
-    }
+        var result = new List<int>();
 
-    private IList<int> PostOrder(TreeNode root, IList<int> nodes)
-    {
-        if (root == null)
+        if (root != null)
         {
-            return nodes;
+            result.AddRange(PostorderTraversal(root.left));
+            result.AddRange(PostorderTraversal(root.right));
+            result.Add(root.val);
         }
-        if (root.left != null)
-        {
-             nodes = PostOrder(root.left, nodes);
-        }
-        if (root.right != null)
-        {
-            nodes = PostOrder(root.right, nodes);
-        }
-        
-        nodes.Add(root.val);
 
-        return nodes;
+        return result;
     }
 }
