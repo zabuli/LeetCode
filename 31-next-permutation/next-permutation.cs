@@ -7,11 +7,6 @@ public class Solution {
 
         var isChange = false;
 
-        //4 3 2 3 1
-        //4 3 3 1 2
-        //1 2 3
-        //1 3 2
-
         for (var i = nums.Length - 2; i >= 0; i--)
         {
             if (nums[i + 1] > nums[i])
