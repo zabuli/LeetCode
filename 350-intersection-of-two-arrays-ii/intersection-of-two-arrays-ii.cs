@@ -1,47 +1,40 @@
 public class Solution {
     public int[] Intersect(int[] nums1, int[] nums2) {
-        Array.Sort(nums1);
-        Array.Sort(nums2);
-
-        return nums1.Length < nums2.Length
-            ? GetIntersect(nums1, nums2)
-            : GetIntersect(nums2, nums1);
+        return nums1.Length <= nums2.Length
+            ? GetIntersect(GetElements(nums1), nums2)
+            : GetIntersect(GetElements(nums2), nums1);
     }
 
-    private int[] GetIntersect(int[] nums1, int[] nums2) 
+    private static Dictionary<int, int> GetElements(int[] nums)
     {
-        var result = new List<int>();
-        var j = 0; 
-        var shouldReset = true;
+        var result = new Dictionary<int, int>();
 
-        for (var i = 0; i < nums1.Length; i++)
+        foreach (var num in nums)
         {
-            if (j == nums2.Length && shouldReset)
+            if (!result.ContainsKey(num))
             {
-                j = 0;
+                result.Add(num, 0);
             }
 
-            while (j < nums2.Length && nums2[j] <= nums1[i])
+            result[num]++;
+        }
+
+        return result;
+    }
+
+    private static int[] GetIntersect(Dictionary<int, int> nums1, int[] nums2)
+    {
+        var result = new List<int>();
+
+        foreach (var num in nums2)
+        {
+            if (nums1.ContainsKey(num) && nums1[num] > 0)
             {
-                if (nums2[j] == nums1[i])
-                {
-                    result.Add(nums2[j]);
-
-                    if (j == nums2.Length - 1)
-                    {
-                        shouldReset = false;
-                    }
-
-                    j++;
-                  
-                    break;
-                }
-
-                j++;
+                result.Add(num);
+                nums1[num]--;
             }
         }
 
         return result.ToArray();
-        //nema byt druhykrat 98
     }
 }
