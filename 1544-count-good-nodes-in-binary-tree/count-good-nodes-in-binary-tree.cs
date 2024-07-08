@@ -13,41 +13,31 @@
  */
 public class Solution {
     public int GoodNodes(TreeNode root) {
-        var result = 1;
-        var stack = new Stack<TreeNode>();
-        var maxims = new Stack<int>();
+        return GoodNodes(root, 1, root.val);
+    }
 
-        stack.Push(root);
-        maxims.Push(root.val);
-
-        while (stack.Count > 0)
+    private int GoodNodes(TreeNode root, int count, int max)
+    {
+        if (root.left != null)
         {
-            var node = stack.Pop();
-            var max = maxims.Pop();
-
-            if (node.left != null)
+            if (root.left.val >= max)
             {
-                if (node.left.val >= max)
-                {
-                    result++;
-                }
-
-                stack.Push(node.left);
-                maxims.Push(Math.Max(max, node.left.val));
+                count++;
             }
 
-            if (node.right != null)
-            {
-                if (node.right.val >= max)
-                {
-                    result++;
-                }
-
-                stack.Push(node.right);
-                maxims.Push(Math.Max(max, node.right.val));
-            }
+            count = GoodNodes(root.left, count, Math.Max(max, root.left.val));
         }
 
-        return result;
+        if (root.right != null)
+        {
+            if (root.right.val >= max)
+            {
+                count++;
+            }
+
+            count = GoodNodes(root.right, count, Math.Max(max, root.right.val));
+        }
+
+        return count;
     }
 }
