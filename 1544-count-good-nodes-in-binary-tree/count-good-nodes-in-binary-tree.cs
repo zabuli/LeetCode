@@ -14,37 +14,37 @@
 public class Solution {
     public int GoodNodes(TreeNode root) {
         var result = 1;
-        var maxims = new Queue<int>();
-        var queue = new Queue<TreeNode>();
+        var stack = new Stack<TreeNode>();
+        var maxims = new Stack<int>();
 
-        queue.Enqueue(root);
-        maxims.Enqueue(root.val);
+        stack.Push(root);
+        maxims.Push(root.val);
 
-        while (queue.Count > 0)
+        while (stack.Count > 0)
         {
-            var node = queue.Dequeue();
-            var maxim = maxims.Dequeue();
-            
+            var node = stack.Pop();
+            var max = maxims.Pop();
+
             if (node.left != null)
             {
-                if (maxim <= node.left.val)
+                if (node.left.val >= max)
                 {
                     result++;
                 }
 
-                maxims.Enqueue(Math.Max(maxim, node.left.val));
-                queue.Enqueue(node.left);
+                stack.Push(node.left);
+                maxims.Push(Math.Max(max, node.left.val));
             }
-            
+
             if (node.right != null)
             {
-                if (maxim <= node.right.val)
+                if (node.right.val >= max)
                 {
                     result++;
                 }
 
-                maxims.Enqueue(Math.Max(maxim, node.right.val));
-                queue.Enqueue(node.right);
+                stack.Push(node.right);
+                maxims.Push(Math.Max(max, node.right.val));
             }
         }
 
