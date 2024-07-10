@@ -20,63 +20,34 @@ public class Solution {
             return null;
         }
         
-        var originNodes = GetNodes(head);
-        var copyNodes = GetCopyNodes(originNodes);
-        var index = 0;
-
-        for (var i = 0; i < copyNodes.Count; i++)
+        var nodes = GetNodes(head);
+        
+        foreach (var node in nodes)
         {
-            index = GetNodeIndex(originNodes, originNodes[i].random);
-
-            if (i < copyNodes.Count - 1)
+            if (node.Key.next != null)
             {
-                copyNodes[i].next = copyNodes[i + 1];
+                node.Value.next = nodes[node.Key.next];
             }
             
-            if (index > -1)
+            if (node.Key.random != null)
             {
-                copyNodes[i].random = copyNodes[index];
+                node.Value.random = nodes[node.Key.random];
             }
         }
 
-        return copyNodes[0];
+        return nodes[head];
     }
 
-    private List<Node> GetNodes(Node head)
+    private Dictionary<Node, Node> GetNodes(Node head)
     {
-        var nodes = new List<Node>();
+        var result = new Dictionary<Node, Node>();
 
         while (head != null)
         {
-            nodes.Add(head);
+            result.Add(head, new Node(head.val));
             head = head.next;
         }
 
-        return nodes;
-    }
-
-    private List<Node> GetCopyNodes(List<Node> nodes)
-    {
-        var result = new List<Node>();
-
-        foreach (var node in nodes)
-        {
-            result.Add(new Node(node.val));
-        }
-
         return result;
-    }
-
-    private static int GetNodeIndex(List<Node> nodes, Node node)
-    {
-        for (var i = 0; i < nodes.Count; i++)
-        {
-            if (nodes[i].Equals(node))
-            {
-                return i;
-            }
-        }
-
-        return -1;
     }
 }
