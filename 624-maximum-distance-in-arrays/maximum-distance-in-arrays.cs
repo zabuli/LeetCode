@@ -23,7 +23,7 @@ public class Solution {
 
         for (var i = 0; i < arrays.Count; i++)
         {
-            var max = arrays[i].Max(); 
+            var max = arrays[i][arrays[i].Count - 1]; 
             
             if (max1 <= max) 
             {
@@ -51,7 +51,7 @@ public class Solution {
 
         for (var i = 0; i < arrays.Count; i++)
         {
-            var min = arrays[i].Min(); 
+            var min = arrays[i][0]; 
             
             if (min1 >= min)
             {
